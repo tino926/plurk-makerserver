@@ -19,7 +19,7 @@ import (
 	"net/http"
 	"os"
 
-	plurgo "github.com/clsung/plurgo/plurkgo"
+	plurgo "github.com/kkdai/plurgo/plurkgo"
 )
 
 type IncomingMsg struct {
