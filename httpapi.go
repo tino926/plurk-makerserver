@@ -45,7 +45,10 @@ func plurkPost(w http.ResponseWriter, req *http.Request) {
 	}
 	log.Println("Body:", string(body))
 	
-	var body_str = strings.Replace(string(body), "\n", "<br>", -1);
+	// [TN]: remove "\n" because json.Unmarshal can't accept it
+	//       remove "#" in front of "!TW"
+	var body_str = strings.Replace(string(body), "\n", "<new_line_tag>", -1);
+	body_str = strings.Replace(string(body), "#!TW", "!TW", -1);
 	
 	//err = json.Unmarshal(body, &in)
 	err = json.Unmarshal([]byte(body_str), &in)
@@ -68,7 +71,8 @@ func plurkPost(w http.ResponseWriter, req *http.Request) {
 	var data = map[string]string{}
 	data["content"] = in.Msg
 	
-	data["content"] = strings.Replace(in.Msg, "<br>", "\n", -1);
+	// [TN]: add "\n" back.
+	data["content"] = strings.Replace(in.Msg, "<new_line_tag>", "\n", -1);
 	
 	data["qualifier"] = "shares"
 	result, err := plurgo.CallAPI(accessToken, "/APP/Timeline/plurkAdd", data)
