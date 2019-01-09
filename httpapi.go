@@ -67,6 +67,9 @@ func plurkPost(w http.ResponseWriter, req *http.Request) {
 	accessToken, _, err := plurgo.GetAccessToken(&plurkCred)
 	var data = map[string]string{}
 	data["content"] = in.Msg
+	
+	data["content"] = strings.Replace(in.Msg, "<br>", "\n", -1);
+	
 	data["qualifier"] = "shares"
 	result, err := plurgo.CallAPI(accessToken, "/APP/Timeline/plurkAdd", data)
 	if err != nil {
