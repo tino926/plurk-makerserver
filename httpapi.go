@@ -44,7 +44,7 @@ func plurkPost(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	log.Println("Body:", string(body))
-	body_str = strings.Replace(string(body), "\n", "<br>", -1);
+	var body_str = strings.Replace(string(body), "\n", "<br>", -1);
 	//err = json.Unmarshal(body, &in)
 	err = json.Unmarshal(body_str, &in)
 	log.Println("Get request:", in)
