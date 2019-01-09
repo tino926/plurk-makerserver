@@ -48,7 +48,7 @@ func plurkPost(w http.ResponseWriter, req *http.Request) {
 	// [TN]: remove "\n" because json.Unmarshal can't accept it
 	//       remove "#" in front of "!TW"
 	var body_str = strings.Replace(string(body), "\n", "<new_line_tag>", -1);
-	body_str = strings.Replace(string(body), "#!TW", "!TW", -1);
+	body_str = strings.Replace(body_str, "#!TW", "!TW", -1);
 	
 	//err = json.Unmarshal(body, &in)
 	err = json.Unmarshal([]byte(body_str), &in)
