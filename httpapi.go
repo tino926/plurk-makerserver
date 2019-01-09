@@ -44,7 +44,9 @@ func plurkPost(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	log.Println("Body:", string(body))
-	err = json.Unmarshal(body, &in)
+	body_str = strings.Replace(string(body), "\n", "<br>", -1);
+	//err = json.Unmarshal(body, &in)
+	err = json.Unmarshal(body_str, &in)
 	log.Println("Get request:", in)
 	if err != nil {
 		log.Println("json unmarkshal error:", err)
@@ -62,7 +64,6 @@ func plurkPost(w http.ResponseWriter, req *http.Request) {
 	accessToken, _, err := plurgo.GetAccessToken(&plurkCred)
 	var data = map[string]string{}
 	data["content"] = in.Msg
-	data["content"] = strings.Replace(in.Msg,"\n","<br>",-1);
 	data["qualifier"] = "shares"
 	result, err := plurgo.CallAPI(accessToken, "/APP/Timeline/plurkAdd", data)
 	if err != nil {
