@@ -44,9 +44,12 @@ func plurkPost(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	log.Println("Body:", string(body))
+	
 	var body_str = strings.Replace(string(body), "\n", "<br>", -1);
+	
 	//err = json.Unmarshal(body, &in)
-	err = json.Unmarshal(body_str, &in)
+	err = json.Unmarshal([]byte(body_str), &in)
+	
 	log.Println("Get request:", in)
 	if err != nil {
 		log.Println("json unmarkshal error:", err)
